@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+{% block title %}{{ conversation.subject }}{% endblock %}
+
+{% block content %}
+    <div class="panel-group">
+        <article class="panel panel-default">
+            <section class="panel-heading">
+                <h1>{{ conversation.subject }}</h1>
+
+                <p class="conversation-participants" style="margin-bottom:0px">
+                    Conversation with
+                    {% for user_name in user_names %}
+                        {{ user_name }}{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </p>
+            </section>
+        </article>
+        <article class="new-message">
+            <form action="{% url 'messages:show' pk=conversation.pk %}" method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">Message field is empty.</div>
+                {% endif %}
+                <div class="form-group">
+                    <p>{% render_field form.content placeholder='Message' class+="form-control" %}</p>
+                </div>
+                <div class="form-group text-right">
+                    <p><input type="submit" class="btn btn-primary" value="Send Message"/></p>
+                </div>
+            </form>
+        </article>
+        {% for message in messages %}
+            <article class="panel panel-default">
+                <section class="panel-heading">
+                    <p>
+                        <strong>{{ message.sender.get_full_name }}</strong> {{ message.created_at|naturaltime }}
+                    </p>
+                </section>
+                <section class="panel-body">
+                    <p>{{ message.content }}</p>
+                </section>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

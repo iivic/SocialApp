@@ -1,0 +1,11 @@
+<button type="button" data-pid="{{ post.id }}" class="btn btn-default btn-xs post-like">
+    {% if post.id in user_post_likes %}
+        <span class="glyphicon glyphicon-thumbs-down"></span> Unlike
+    {% else %}
+        <span class="glyphicon glyphicon-thumbs-up"></span> Like
+    {% endif %}
+</button>
+{% if post.user.id == request.user.id %}
+    <a href="{% url 'posts:update' pk=post.pk %}" class="btn btn-primary btn-xs">Edit</a>
+    <a href="{% url 'posts:delete' pk=post.pk %}" class="btn btn-danger btn-xs">Delete</a>
+{% endif %}

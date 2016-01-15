@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="panel-group">
+        <article class="panel panel-default">
+            <section class="panel-heading">
+                <h1>{{ post.title }}</h1>
+
+                <p class="post-info">
+                    Posted by
+                    <strong>{{ post.user.first_name }} {{ post.user.last_name }}</strong> {{ post.created_at|naturaltime }}
+                </p>
+            </section>
+            <section class="panel-body">
+                <p>{{ post.content }}</p>
+
+                <p class="post-counts">
+                    <span class="like-count">{% include "item_count.html" with name="like" items=post.postlike_set %}</span>
+                    <span class="comment-count">{% include "item_count.html" with name="comment" items=post.comment_set %}</span>
+                </p>
+
+                <p class="post-buttons">
+                    {% include "post_buttons.html" %}
+                </p>
+            </section>
+        </article>
+        <article class="new-comment">
+            <form action="{% url 'posts:show' pk=post.pk %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {% render_field comment_form.content class+="form-control" placeholder="Comment"%}
+                </div>
+                <div class="form-group text-right">
+                    <input type="submit" class="btn btn-primary btn-sm " value="Add Comment"/>
+                </div>
+            </form>
+        </article>
+        {% if comments.count > 0 %}
+            {% for comment in comments %}
+                <article class="panel panel-default">
+                    <section class="panel-heading">
+                        <p class="comment-info">
+                            <strong>{{ comment.user.first_name }} {{ comment.user.last_name }}</strong> {{ comment.created_at|naturaltime }}
+                        </p>
+                        {% if comment.user.id == request.user.id %}
+                            <a href="{% url 'posts:delete_comment' pk=comment.pk %}"
+                               class="btn btn-danger btn-xs top-right-corner">Delete</a>
+                        {% endif %}
+                    </section>
+                    <section class="panel-body">
+                        <p>{{ comment.content }}</p>
+                        <p class="comment-like-count">
+                            {% include "item_count.html" with name="like" items=comment.commentlike_set %}
+                        </p>
+                        <p class="comment-buttons">
+                            <button type="button" data-cid="{{ comment.id }}"
+                                    class="btn btn-default btn-xs comment-like">
+                                {% if comment.id in user_comment_likes %}
+                                    <span class="glyphicon glyphicon-thumbs-down"></span> Unlike
+                                {% else %}
+                                    <span class="glyphicon glyphicon-thumbs-up"></span> Like
+                                {% endif %}
+                            </button>
+                        </p>
+                    </section>
+                </article>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

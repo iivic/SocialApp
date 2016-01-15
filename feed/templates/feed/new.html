@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}New Post{% endblock %}
+
+{% block content %}
+    <article class="new-article">
+        <section>
+            <h1><img src="{% static 'images/post_icon.png' %}" class="post-icon"> New Post</h1>
+        </section>
+
+        <form action="{% url 'posts:create' %}" method="POST">
+            {% include "post_form.html" %}
+            <div class="form-group text-right">
+                <input type="submit" class="btn btn-primary" value="Create"/>
+            </div>
+        </form>
+    </article>
+{% endblock %}

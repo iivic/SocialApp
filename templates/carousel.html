@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<div id="carousel" class="carousel slide" data-ride="carousel">
+    {# carousel indicators #}
+    <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+    </ol>
+    {# end carousel indicators #}
+
+    {# Wrapper for slides #}
+    <article class="carousel-inner" role="listbox">
+        <section class="item active">
+            <img src="{% static "images/carousel_images/image1.jpg" %}" alt="alt1">
+
+            <div class="carousel-caption">
+                <h2>Beautiful nature 1</h2>
+            </div>
+        </section>
+        <section class="item">
+            <img src="{% static "images/carousel_images/image3.jpg" %}" alt="alt3">
+
+            <div class="carousel-caption">
+                <h2>Beautiful nature 2</h2>
+            </div>
+        </section>
+        <section class="item">
+            <img src="{% static "images/carousel_images/image4.jpg" %}" alt="alt4">
+
+            <div class="carousel-caption">
+                <h2>Beautiful nature 3</h2>
+            </div>
+        </section>
+    </article>
+    {# end wrapper for slides #}
+
+    {# carousel controls #}
+    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+    {# end carousel controls #}
+</div>

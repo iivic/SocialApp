@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block title %}New Message{% endblock %}
+
+{% block content %}
+    <article class="new-article">
+        <h1><img src="{% static 'images/post_icon.png' %}" class="post-icon"> New Message</h1>
+
+        <form action="{% url 'messages:create' %}" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                <p class="alert alert-danger" role="alert">All fields are required!</p>
+            {% endif %}
+            <div class="form-group">
+                {{ form.participants.label_tag }}
+                {% render_field form.participants class+="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.subject placeholder=form.subject.label class+="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.message placeholder=form.message.label class+="form-control" %}
+            </div>
+            <div class="form-group text-right">
+                <input type="submit" class="btn btn-primary" value="Send message"/>
+            </div>
+        </form>
+    </article>
+{% endblock %}

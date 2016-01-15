@@ -1,0 +1,12 @@
+{% load widget_tweaks %}
+
+{% if form.errors %}
+    <p class="alert alert-danger" role="alert">All fields are required!</p>
+{% endif %}
+{% csrf_token %}
+<div class="form-group">
+    {% render_field form.title class+="form-control" placeholder=form.title.label%}
+</div>
+<div class="form-group">
+    {% render_field form.content class+="form-control" rows="5" placeholder=form.content.label%}
+</div>

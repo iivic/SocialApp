@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <img id="logo" src="{% static 'images/logo.png' %}" alt="Logo">
+    <h1 class="text-center">Social App</h1>
+    <div id="login-form">
+        <p id="top-text">Please log in using your credentials.</p>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">Invalid username and/or password.</div>
+            {% endif %}
+            <div class="form-group">
+                <div class="input-group">
+                    {% render_field form.username placeholder=form.username.label class="form-control" %}
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    {% render_field form.password placeholder=form.password.label class="form-control" %}
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log in"/>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <a href="{% url 'registration_register' %}" class="pull-right">New Account</a>
+        </form>
+    </div>
+{% endblock %}

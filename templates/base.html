@@ -1,0 +1,78 @@
+{% load staticfiles %}
+{% url 'posts:index' as posts_index %}
+{% url 'posts:create' as posts_create %}
+{% url 'messages:index' as messages_index %}
+{% url 'messages:create' as messages_create %}
+{% url 'profile:show_friends' as show_friends %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Social App - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    {% include "underscore_templates.html" %}
+</head>
+<body>
+<div class="container">
+    {% if user.is_authenticated %}
+        <header>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#instanthelp-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'posts:index' %}">Social App</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="instanthelp-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="{% if request.get_full_path == posts_index %}active{% endif %}">
+                                <a href="{% url 'posts:index' %}">News Feed</a></li>
+                            <li class="{% if request.get_full_path == posts_create %}active{% endif %}">
+                                <a href="{% url 'posts:create' %}">New Post</a></li>
+                            <li class="{% if request.get_full_path == messages_index %}active{% endif %}">
+                                <a href="{% url 'messages:index' %}">Messages</a></li>
+                            <li class="{% if request.get_full_path == messages_create %}active{% endif %}">
+                                <a href="{% url 'messages:create' %}">New Message</a></li>
+                            <li class="{% if request.get_full_path == show_friends %}active{% endif %}">
+                                <a href="{% url 'profile:show_friends' %}">Friend List</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><p class="navbar-text hidden-xs">Logged in
+                                as
+                                <a href="{% url "profile:user_info" %}">- {{ user.first_name }} {{ user.last_name }}</a>
+                            </p></li>
+                            <li><a href="{% url 'logout' %}">Log out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    {% endif %}
+    <main id="content">
+    <!--
+        {# Carousel #}
+        {% if user.is_authenticated %}
+            {% include "carousel.html" %}
+        {% endif %}
+        {# End Carousel #}
+        -->
+        {% block content %}{% endblock %}
+    </main>
+    {% if user.is_authenticated %}
+        <footer>Copyright &copy; {% now 'Y' %} ExtensionEngine</footer>
+    {% endif %}
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.4.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    {% block javascript %}{% endblock javascript %}
+</div>
+</body>
+</html>

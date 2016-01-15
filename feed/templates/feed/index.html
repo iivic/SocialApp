@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}News Feed{% endblock %}
+
+{% block content %}
+    {% if posts.count > 0 %}
+        <div class="panel-group">
+            {% for post in posts %}
+                <article class="panel panel-default">
+                    <section class="panel-heading row">
+                        <div class="avatar-left col-md-2 hidden-sm hidden-xs">
+                            <img src="{{ post.user.userprofile.avatar.url }}" class="post-avatar-image img-rounded" >
+                        </div>
+                        <div class="post-info-right col-md-10 col-sm-12"><h1><a
+                                href="{% url 'posts:show' pk=post.pk %}">{{ post.title }}</a></h1>
+
+                            <p class="post-info">
+                                Posted by
+                                <strong>{{ post.user.first_name }} {{ post.user.last_name }}</strong> {{ post.created_at|naturaltime }}
+                            </p>
+                        </div>
+                    </section>
+                    <section class="panel-body">
+                        <p>{{ post.content }}</p>
+
+                        <p class="post-counts">
+                            <span class="like-count">{% include "item_count.html" with name="like" items=post.postlike_set %}</span>
+                            <span class="comment-count">{% include "item_count.html" with name="comment" items=post.comment_set %}</span>
+                        </p>
+
+                        <p class="post-buttons">
+                            {% include "post_buttons.html" %}
+                        </p>
+                    </section>
+                </article>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href="?page={{ posts.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </span>
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}">Next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <h3>Sorry, nothing to see here :-(</h3>
+    {% endif %}
+{% endblock %}

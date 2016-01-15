@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Find Friends{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default clearfix">
+        <input type="search" id="search_new_friends" placeholder="Find friends">
+        <a href="{% url "profile:show_friends" %}" class="btn pull-right"><span class="glyphicon glyphicon-arrow-left"></span>
+            &nbspBack to friends</a>
+    </div>
+
+    <div id="search_results">
+        <h1>No results</h1>
+    </div>
+{% endblock %}

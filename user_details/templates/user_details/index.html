@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}User profile{% endblock %}
+
+{% block content %}
+    <article class="new-article">
+        <section>
+            <h1><img src="{{ profile.avatar.url }}" class="post-avatar-image"> Edit Profile</h1>
+        </section>
+        <form id="user_profile_id" method="POST" action="{% url 'profile:user_info' %}" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {% if form_account.errors %}
+                <p class="alert alert-danger" role="alert">All field are required!</p>
+            {% endif %}
+            <fieldset>
+                <legend>Account data</legend>
+                {% for data in form_account %}
+                    <div class="form-group">
+                        {{ data.label_tag }}
+                        {% render_field data class+="form-control" %}
+                    </div>
+                {% endfor %}
+                <a href="{% url "profile:change_password" %}" class="pull-right">Change password</a>
+            </fieldset>
+            {# Account data fieldset #}
+
+            {% if form_user.errors %}
+                <span class="alert alert-danger" role="alert">All field are required!</span>
+            {% endif %}
+            <fieldset>
+                <legend>User data</legend>
+                <div class="form-group">
+                    {{ form_profile.avatar.label_tag }}
+                    <span class="form-control change-avatar-span">
+                        {{ form_profile.avatar }}
+                    </span>
+                </div>
+                {% for data in form_profile %}
+                    {% if not data == form_profile.avatar %}
+                        <div class="form-group">
+                            {{ data.label_tag }}
+                            {% render_field data class+="form-control" %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+            {# User data fieldset #}
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary  btn-block">
+            </div>
+        </form>
+    </article>
+{% endblock %}

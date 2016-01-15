@@ -1,0 +1,168 @@
+#carousel {
+    margin-bottom: 10px;
+    height: auto;
+    max-width: 600px;
+}
+
+body {
+    background: linear-gradient(to right, white, gray);
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+footer {
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+img#logo {
+    display: block;
+    width: 160px;
+    height: 160px;
+    margin: 40px auto 0;
+}
+
+#login-form {
+    width: 400px;
+    margin: 40px auto 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+#login-form #top-text {
+    margin-bottom: 20px;
+}
+
+.post-icon {
+    height: 70px;
+    width: 70px;
+}
+
+article.new-comment, article.new-message {
+    max-width: 600px;
+    background: #F7F7F7;
+    padding: 15px 15px 5px 10px;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border: 1px solid #e7e7e7;
+}
+
+article.new-article {
+    max-width: 600px;
+    background: #F7F7F7;
+    padding: 15px 15px 5px 10px;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border: 1px solid #e7e7e7;
+}
+
+article.new-article h1 {
+    padding-left: 5px;
+    font-size: 25px;
+    display: block;
+    border-bottom: 1px solid #E4E4E4;
+    margin: -10px -15px 10px -10px;
+    color: #888;
+}
+
+.panel-group .panel-heading h1 {
+    font-size: 25px;
+    display: block;
+    margin: 0px 0px 0px 0px;
+    color: #888;
+}
+
+.panel.panel-default {
+    max-width: 600px;
+}
+
+.panel-body {
+    padding: 5px 15px 0px 15px;
+}
+
+.panel-heading {
+    padding-bottom: 0px;
+    position: relative;
+}
+
+.panel-heading a {
+    color: #888;
+}
+
+.panel-heading .top-right-corner {
+    color: #e7e7e7;
+}
+
+.top-right-corner {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.conversation-participants, .post-info {
+    margin-top: 3px;
+}
+
+#user_profile_id legend {
+    color: #888;
+}
+
+#user_profile_id fieldset {
+    margin-top: 40px;
+}
+
+.errorlist {
+    color: red;
+}
+
+.post-avatar-image {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.panel-heading.row {
+    margin: 0;
+}
+
+.post-info-right{
+    padding: 0;
+}
+.change-avatar-span{
+    height: auto;
+}
+#search_existing_friends{
+    padding: 5px 0px 5px 5px;
+    border-radius: 5px;
+}
+.searched_friends{
+    max-width: 600px;
+    border: #B3B3B3 1px solid;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+.searched_friends_avatar{
+    float: left;
+    width: 40%;
+}
+.searched_friends_avatar img{
+    border-radius: 100%;
+}
+.searched_friends_info{
+    float: left;
+    width: 60%;
+    padding-left: 30px;
+}
+.searched_friends_info_header{
+    margin-bottom: 30px;
+}
+
+#search_new_friends{
+    padding: 5px 0px 5px 5px;
+    border-radius: 5px;
+}

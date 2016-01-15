@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+    <article class="new-article">
+        <h1><img src="{% static 'images/post_icon.png' %}" class="post-icon"> Edit Post</h1>
+
+        <form action="{% url 'posts:update' pk=pk %}" method="POST">
+            {% include "post_form.html" %}
+            <div class="form-group text-right">
+                <input type="submit" class="btn btn-primary" value="Update"/>
+            </div>
+        </form>
+    </article>
+{% endblock %}

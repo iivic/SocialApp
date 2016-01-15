@@ -1,0 +1,35 @@
+<script type="text/my-underscore" id="searched_friends_template">
+    <article class="searched_friends clearfix">
+        <figure class="searched_friends_avatar hidden-xs">
+            <img src="<%= avatar %>"/>
+        </figure>
+        <section class="searched_friends_info">
+            <h3 class="searched_friends_info_header">Friend Info</h3>
+            <p><span class="glyphicon glyphicon-user"></span>  <%= friend.username %></p>
+            <p><span class="glyphicon glyphicon-font"></span>  <%= friend.first_name %></p>
+            <p><span class="glyphicon glyphicon-bold"></span>  <%= friend.last_name %></p>
+            <p><span class="glyphicon glyphicon-envelope"></span>  <%= friend.email %></p>
+        </section>
+    </article>
+</script>
+
+<script type="text/my-underscore" id="found_users_template">
+    <article class="searched_friends clearfix">
+        <figure class="searched_friends_avatar hidden-xs">
+            <img src="<%= userAvatar %>"/>
+        </figure>
+        <section class="searched_friends_info">
+            <% if(!isFriend){
+                print('<button class="btn btn-success pull-right friends" data-uid='+user.id+'>Add friend</button>')
+            }
+            else{
+                print('<button class="btn btn-danger pull-right not_friends" data-uid='+user.id+'>Unfriend</button>')
+            } %>
+            <h3 class="searched_friends_info_header">Friend Info</h3>
+            <p><span class="glyphicon glyphicon-user"></span>  <%= user.username %></p>
+            <p><span class="glyphicon glyphicon-font"></span>  <%= user.first_name %></p>
+            <p><span class="glyphicon glyphicon-bold"></span>  <%= user.last_name %></p>
+            <p><span class="glyphicon glyphicon-envelope"></span>  <%= user.email %></p>
+        </section>
+    </article>
+</script>

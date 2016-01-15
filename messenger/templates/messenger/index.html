@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+    {% if conversations > 0 %}
+        <div class="panel-group">
+            {% for conversation in conversations %}
+                <article class="panel panel-default">
+                    <section class="panel-heading">
+                        <h1>
+                            <a href="{% url 'messages:show' pk=conversation.pk %}">{{ conversation.subject }}</a>
+                        </h1>
+                        {% if user.id == conversation.message_set.earliest.sender.id %}
+                            <a href="{% url 'messages:delete' pk=conversation.pk %}"
+                               class="btn btn-danger btn-xs top-right-corner">Delete
+                                Conversation</a>
+                        {% endif %}
+                        <p class="conversation-participants">
+                            Conversation with
+                            {% for conversation_id, user_names in participants.items %}
+                                {% if conversation_id == conversation.id %}
+                                    {% for user_name in user_names %}
+                                        {{ user_name }}{% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </section>
+                    <section class="panel-body">
+                        <p class="conversation-message-content">
+                            {{ conversation.message_set.latest.content }}
+                        </p>
+                        <p class="conversation-message-info">
+                            Sent by <strong>{% if user.id == conversation.message_set.latest.sender.id %}You{% else %}
+                            {{ conversation.message_set.latest.sender.get_full_name }}{% endif %}</strong>
+                            {{ conversation.message_set.latest.created_at|naturaltime }}
+                        </p>
+                    </section>
+                </article>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if conversations.has_previous %}
+                    <a href="?page={{ conversations.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ conversations.number }} of {{ conversations.paginator.num_pages }}.
+                </span>
+                {% if conversations.has_next %}
+                    <a href="?page={{ conversations.next_page_number }}">Next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <h3>Sorry, nothing to see here :-(</h3>
+    {% endif %}
+{% endblock %}

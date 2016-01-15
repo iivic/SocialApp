@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Friends{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default clearfix">
+        <input type="search" name="friend_search" id="search_existing_friends" placeholder="Search friends">
+        <a href="{% url "profile:find_friends" %}" class="btn pull-right"><span class="glyphicon glyphicon-plus"></span>
+            Find new friends</a>
+    </div>
+    <div id="friends_data">
+        {% for friend in user_friends %}
+            <article class="panel panel-default">
+                <section class="panel-heading">
+                    <h4><img src="{{ friend.userprofile.avatar.url }}"
+                             class="post-avatar-image"/> {{ friend.first_name }} {{ friend.last_name }}</h4>
+                </section>
+                <section class="panel-body">
+                    <label>Username: </label>
+                    <p>{{ friend.username }}</p>
+
+                    <label>First name: </label>
+                    <p>{{ friend.first_name }}</p>
+
+                    <label>Last name: </label>
+                    <p>{{ friend.last_name }}</p>
+
+                    <label>E-mail: </label>
+                    <p>{{ friend.email }}</p>
+
+                    <label>Gender: </label>
+                    <p>{{ friend.userprofile.get_gender_display }}</p>
+
+                    <label>Location: </label>
+                    <p>{{ friend.userprofile.location }}</p>
+
+                    <label>Favorite animal: </label>
+                    <p>{{ friend.userprofile.favorite_animal }}</p>
+
+                    <label>Job: </label>
+                    <p>{{ friend.userprofile.job }}</p>
+
+                    <label>Education: </label>
+                    <p>{{ friend.userprofile.education }}</p>
+
+                    <label>Short description: </label>
+                    <p>{{ friend.userprofile.short_description }}</p>
+
+                    <label>Last online: </label>
+                    <p>{{ friend.last_login|naturaltime }}</p>
+                </section>
+                <section class="panel-footer">
+                    <p>Joined Social App {{ friend.date_joined|naturaltime }}</p>
+                </section>
+            </article>
+        {% endfor %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if user_friends.has_previous %}
+                    <a href="?page={{ user_friends.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ user_friends.number }} of {{ user_friends.paginator.num_pages }}
+                </span>
+                {% if user_friends.has_next %}
+                    <a href="?page={{ user_friends.next_page_number }}">Next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <div id="search_results">
+
+    </div>
+{% endblock %}
